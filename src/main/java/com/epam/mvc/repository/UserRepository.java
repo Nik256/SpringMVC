@@ -10,4 +10,6 @@ public interface UserRepository {
     User read(int id);
 
     List<User> getAll();
+
+    User getByName(String name);
 }

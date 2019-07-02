@@ -1,12 +1,13 @@
 package com.epam.mvc.service;
 
+import com.epam.mvc.exception.ProductNotFoundException;
 import com.epam.mvc.model.Product;
 import com.epam.mvc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomProductService implements ProductService {
@@ -38,10 +39,10 @@ public class CustomProductService implements ProductService {
         return productRepository.getAll();
     }
 
-    @PostConstruct
-    private void initSomeProduct() {
-        productRepository.create(new Product(1, "Green leaf", "Leaf from old oak"));
-        productRepository.create(new Product(2, "Some orange", "Vitamin C is all what you need"));
-        productRepository.create(new Product(3, "Tea cup", "Cup to drink green tea"));
+    @Override
+    public List<Product> getProductsByName(String name) {
+        return productRepository.getAll().stream()
+                .filter(product -> product.getName().contains(name))
+                .collect(Collectors.toList());
     }
 }

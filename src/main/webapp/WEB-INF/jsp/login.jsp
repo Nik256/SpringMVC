@@ -9,7 +9,7 @@
 <div>
     <form action="/login" method="post">
         <label><b>login</b></label>
-        <input type="text" name="login" required>
+        <input type="text" name="username" required>
 
         <label><b>password</b></label>
         <input type="password" name="password" required>

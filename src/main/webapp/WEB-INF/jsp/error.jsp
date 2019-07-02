@@ -7,8 +7,8 @@
 </head>
 <body>
 <div>
-    <p>Произошла ошибка:</p>
-    <p style="color:red">${error}</p>
+    <h3>Произошла ошибка:</h3>
+    <p style="color:red"><b>${error}</b></p>
     <a href="/home">На главную</a>
 </div>
 </body>

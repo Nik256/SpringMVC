@@ -13,5 +13,7 @@ public interface ProductRepository {
 
     void delete(int id);
 
+    Product getById(int id);
+
     List<Product> getAll();
 }

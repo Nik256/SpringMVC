@@ -4,9 +4,13 @@ import com.epam.mvc.model.Role;
 import com.epam.mvc.model.User;
 import com.epam.mvc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class CustomUserService implements UserService {
@@ -19,8 +23,18 @@ public class CustomUserService implements UserService {
     }
 
     @Override
-    public void getUser(int id) {
-        userRepository.read(id);
+    public User getUser(int id) {
+        return userRepository.read(id);
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        return userRepository.getByName(name);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.getAll();
     }
 
     @Override
@@ -31,11 +45,5 @@ public class CustomUserService implements UserService {
             }
         }
         return false;
-    }
-
-    @PostConstruct
-    public void initSomeUsers() {
-        userRepository.create(new User(1, "user", "pass", Role.USER));
-        userRepository.create(new User(2, "admin", "admin", Role.ADMIN));
     }
 }
