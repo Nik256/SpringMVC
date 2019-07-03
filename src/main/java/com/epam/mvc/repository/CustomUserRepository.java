@@ -35,7 +35,7 @@ public class CustomUserRepository implements UserRepository {
 
     @Override
     public User getByName(String name) {
-        for (User user: userList) {
+        for (User user : userList) {
             if (user.getName().equals(name)) {
                 return user;
             }
