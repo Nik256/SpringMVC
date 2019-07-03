@@ -32,7 +32,6 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .csrf().disable()
                     .formLogin()
-                    .loginPage("/login")
                     .defaultSuccessUrl("/home")
                     .failureForwardUrl("/error")
                     .permitAll()

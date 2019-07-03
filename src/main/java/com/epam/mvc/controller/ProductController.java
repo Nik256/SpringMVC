@@ -1,13 +1,11 @@
 package com.epam.mvc.controller;
 
+import com.epam.mvc.exception.AchievedMaxNumberOfRequestsException;
 import com.epam.mvc.model.Product;
 import com.epam.mvc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,9 +35,16 @@ public class ProductController {
     }
 
     @PostMapping("create-product")
-    private String createProduct(Product product) {
-        productService.createProduct(product);
-        return "redirect:products";
+    private ModelAndView createProduct(Product product) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            productService.createProduct(product);
+            modelAndView.setViewName("redirect:/products");
+        } catch (AchievedMaxNumberOfRequestsException e) {
+            modelAndView.addObject("error", e.getMessage());
+            modelAndView.setViewName("/error");
+        }
+        return modelAndView;
     }
 
     @PostMapping("edit-product")

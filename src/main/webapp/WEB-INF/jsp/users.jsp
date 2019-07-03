@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Products</title>
+    <script src="../js/ajax.js"></script>
     <style>
         table {
           border-collapse: collapse;
@@ -23,6 +24,7 @@
             <th>Name</th>
             <th>Password</th>
             <th>Roles</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +34,7 @@
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.roles}"/></td>
+                <td><a href='/delete-user/${user.id}' id="delete-user">Delete</a></td>
             </tr>
         </c:forEach>
         </tbody>

@@ -3,19 +3,20 @@ package com.epam.mvc.repository;
 import com.epam.mvc.model.Role;
 import com.epam.mvc.model.User;
 import com.github.javafaker.Faker;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 @Repository
 public class CustomUserRepository implements UserRepository {
-    private List<User> userList = new ArrayList<>();
+    private List<User> userList = Collections.synchronizedList(new ArrayList<>());
+
+    @Value("${initialUserCount}")
+    private int initialUserCount;
 
     @Override
     public void create(User user) {
@@ -42,6 +43,19 @@ public class CustomUserRepository implements UserRepository {
         return null;
     }
 
+    @Override
+    public void delete(int id) {
+        userList.remove(getById(id));
+    }
+
+    @Override
+    public User getById(int id) {
+        return userList.stream()
+                .filter(user -> user.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
     @PostConstruct
     public void initSomeUsers() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -50,7 +64,7 @@ public class CustomUserRepository implements UserRepository {
         create(new User(1, "admin", encoder.encode("admin"),
                 new HashSet<>(Arrays.asList(Role.USER, Role.ADMIN))));
         Faker faker = new Faker();
-        IntStream.range(2, 10).forEach(i -> userList.add(new User(i,
+        IntStream.range(2, initialUserCount).forEach(i -> userList.add(new User(i,
                 faker.name().username(),
                 encoder.encode(faker.funnyName().name()),
                 new HashSet<>(Arrays.asList(Role.USER)))));

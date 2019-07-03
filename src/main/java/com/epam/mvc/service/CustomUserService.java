@@ -1,15 +1,10 @@
 package com.epam.mvc.service;
 
-import com.epam.mvc.model.Role;
 import com.epam.mvc.model.User;
 import com.epam.mvc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -30,6 +25,11 @@ public class CustomUserService implements UserService {
     @Override
     public User getUserByName(String name) {
         return userRepository.getByName(name);
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        userRepository.delete(id);
     }
 
     @Override

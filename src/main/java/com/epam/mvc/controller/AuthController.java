@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class AuthController {
     @GetMapping("/")
-    private String index() {
-        return "redirect:home";
+    private ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:home");
+        return modelAndView;
     }
 
     @GetMapping("home")
@@ -29,8 +31,10 @@ public class AuthController {
     }
 
     @GetMapping("login")
-    private String login() {
-        return "login";
+    private ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/login");
+        return modelAndView;
     }
 
     @GetMapping("logout")
