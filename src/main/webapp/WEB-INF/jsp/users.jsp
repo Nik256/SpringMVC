@@ -4,7 +4,8 @@
 <html>
 <head>
     <title>Products</title>
-    <script src="../js/ajax.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/ajax.js"></script>
     <style>
         table {
           border-collapse: collapse;
@@ -17,7 +18,7 @@
 </head>
 <body>
 <div>
-    <table>
+    <table id="newTable">
         <thead>
         <tr>
             <th>Id</th>
@@ -34,7 +35,7 @@
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.roles}"/></td>
-                <td><a href='/delete-user/${user.id}' id="delete-user">Delete</a></td>
+                <td style="color:red" id="ajax">Delete</td>
             </tr>
         </c:forEach>
         </tbody>

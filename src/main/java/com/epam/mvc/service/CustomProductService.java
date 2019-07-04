@@ -3,7 +3,7 @@ package com.epam.mvc.service;
 import com.epam.mvc.exception.AchievedMaxNumberOfRequestsException;
 import com.epam.mvc.model.Product;
 import com.epam.mvc.repository.ProductRepository;
-import com.epam.mvc.session.SessionManager;
+import com.epam.mvc.session.RequestCounter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class CustomProductService implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private SessionManager sessionManager;
+    private RequestCounter sessionManager;
 
     @Override
     public void createProduct(Product product) throws AchievedMaxNumberOfRequestsException {

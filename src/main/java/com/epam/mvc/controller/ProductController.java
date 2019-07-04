@@ -2,6 +2,7 @@ package com.epam.mvc.controller;
 
 import com.epam.mvc.exception.AchievedMaxNumberOfRequestsException;
 import com.epam.mvc.model.Product;
+import com.epam.mvc.service.PagingService;
 import com.epam.mvc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,20 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private PagingService pagingService;
+
     @GetMapping("products")
-    private ModelAndView products() {
+    private ModelAndView products(@RequestParam(required = false) Integer page) {
+        if (page == null) {
+            page = 1;
+        }
+        pagingService.setCurrentPage(page);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/products");
-        modelAndView.addObject("productList", productService.getAllProduct());
+        modelAndView.addObject("maxPages", pagingService.getPageCount());
+        modelAndView.addObject("productList", pagingService.getPageList());
+        modelAndView.addObject("page", page);
         return modelAndView;
     }
 
@@ -72,8 +82,8 @@ public class ProductController {
     @PostMapping("search")
     private ModelAndView postSearch(@RequestParam(value = "name") String name) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/products");
         modelAndView.addObject("productList", productService.getProductsByName(name));
-        modelAndView.setViewName("products");
         return modelAndView;
     }
 }

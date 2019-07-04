@@ -6,7 +6,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 @Component
 @SessionScope
-public class SessionManager {
+public class RequestCounter {
 
     @Value("${maxRequestCount}")
     private int maxRequestCount;

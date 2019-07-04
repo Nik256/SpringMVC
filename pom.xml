@@ -69,6 +69,7 @@
             <artifactId>javafaker</artifactId>
             <version>0.18</version>
         </dependency>
+
     </dependencies>
 
     <!-- Package as an executable jar -->

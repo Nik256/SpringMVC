@@ -23,7 +23,6 @@
             <th>Name</th>
             <th>Description</th>
             <th></th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +36,20 @@
         </c:forEach>
         </tbody>
     </table>
+
+     <c:url value="/products" var="prev">
+        <c:param name="page" value="${page-1}"/>
+     </c:url>
+     <c:if test="${page > 1}">
+            <a href="<c:out value="${prev}" />">Prev</a>
+     </c:if>
+
+     <c:url value="/products" var="next">
+        <c:param name="page" value="${page + 1}"/>
+     </c:url>
+     <c:if test="${page + 1 <= maxPages}">
+             <a href='<c:out value="${next}" />'>Next</a>
+     </c:if>
     <h3><a href='/product'>Create product</a></h3>
     <a href='/home'>Home</a>
 </div>
