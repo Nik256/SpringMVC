@@ -1,5 +1,6 @@
 package com.epam.mvc.config;
 
+import com.epam.mvc.handler.CustomAuthenticationSuccessHandler;
 import com.epam.mvc.model.Role;
 import com.epam.mvc.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Autowired
     CustomUserDetailsService userDetailsService;
 
@@ -32,7 +36,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .csrf().disable()
                     .formLogin()
-                    .defaultSuccessUrl("/home")
+                    .successHandler(customAuthenticationSuccessHandler)
                     .failureForwardUrl("/error")
                     .permitAll()
                 .and()
