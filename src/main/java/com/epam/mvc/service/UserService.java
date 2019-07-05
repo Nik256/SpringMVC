@@ -1,6 +1,6 @@
 package com.epam.mvc.service;
 
-import com.epam.mvc.model.User;
+import com.epam.mvc.dto.User;
 
 import java.util.List;
 

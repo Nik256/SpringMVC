@@ -1,7 +1,7 @@
 package com.epam.mvc.controller;
 
 import com.epam.mvc.ProductApp;
-import com.epam.mvc.model.Product;
+import com.epam.mvc.dto.Product;
 import com.epam.mvc.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;

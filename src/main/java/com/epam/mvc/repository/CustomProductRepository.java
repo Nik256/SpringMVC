@@ -1,6 +1,6 @@
 package com.epam.mvc.repository;
 
-import com.epam.mvc.model.Product;
+import com.epam.mvc.dto.Product;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;

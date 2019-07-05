@@ -1,6 +1,6 @@
 package com.epam.mvc.service;
 
-import com.epam.mvc.model.User;
+import com.epam.mvc.dto.User;
 import com.epam.mvc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

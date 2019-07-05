@@ -1,7 +1,7 @@
 package com.epam.mvc.service;
 
 import com.epam.mvc.exception.AchievedMaxNumberOfRequestsException;
-import com.epam.mvc.model.Product;
+import com.epam.mvc.dto.Product;
 import com.epam.mvc.repository.ProductRepository;
 import com.epam.mvc.session.RequestCounter;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.epam.mvc.repository;
 
-import com.epam.mvc.model.User;
+import com.epam.mvc.dto.User;
 
 import java.util.List;
 

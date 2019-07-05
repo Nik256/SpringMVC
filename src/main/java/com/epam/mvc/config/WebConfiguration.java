@@ -1,7 +1,7 @@
 package com.epam.mvc.config;
 
 import com.epam.mvc.handler.CustomAuthenticationSuccessHandler;
-import com.epam.mvc.model.Role;
+import com.epam.mvc.dto.Role;
 import com.epam.mvc.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

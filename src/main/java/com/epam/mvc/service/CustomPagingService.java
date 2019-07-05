@@ -1,6 +1,6 @@
 package com.epam.mvc.service;
 
-import com.epam.mvc.model.Product;
+import com.epam.mvc.dto.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;

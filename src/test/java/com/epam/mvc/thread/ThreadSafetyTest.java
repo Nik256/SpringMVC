@@ -1,7 +1,7 @@
 package com.epam.mvc.thread;
 
 import com.epam.mvc.ProductApp;
-import com.epam.mvc.model.Product;
+import com.epam.mvc.dto.Product;
 import com.epam.mvc.repository.ProductRepository;
 import com.github.javafaker.Faker;
 import org.junit.Test;

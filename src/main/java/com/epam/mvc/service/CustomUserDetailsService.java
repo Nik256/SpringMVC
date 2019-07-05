@@ -1,7 +1,7 @@
 package com.epam.mvc.service;
 
-import com.epam.mvc.model.Role;
-import com.epam.mvc.model.User;
+import com.epam.mvc.dto.Role;
+import com.epam.mvc.dto.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

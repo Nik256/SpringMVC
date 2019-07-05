@@ -1,7 +1,7 @@
 package com.epam.mvc.repository;
 
-import com.epam.mvc.model.Role;
-import com.epam.mvc.model.User;
+import com.epam.mvc.dto.Role;
+import com.epam.mvc.dto.User;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

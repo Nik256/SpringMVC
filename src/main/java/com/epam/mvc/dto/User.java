@@ -1,4 +1,4 @@
-package com.epam.mvc.model;
+package com.epam.mvc.dto;
 
 import lombok.*;
 

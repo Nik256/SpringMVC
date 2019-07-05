@@ -1,6 +1,6 @@
 package com.epam.mvc.controller;
 
-import com.epam.mvc.model.Role;
+import com.epam.mvc.dto.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
