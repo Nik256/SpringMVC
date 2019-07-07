@@ -2,8 +2,8 @@ package com.epam.mvc.controller;
 
 import com.epam.mvc.dto.Product;
 import com.epam.mvc.exception.AchievedMaxNumberOfRequestsException;
-import com.epam.mvc.service.PagingService;
 import com.epam.mvc.service.ProductService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,24 +12,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.stream.IntStream;
+
 @Controller
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private PagingService pagingService;
-
     @GetMapping("products")
     private ModelAndView products(@RequestParam(required = false) Integer page) {
         if (page == null) {
-            page = 1;
+            page = 0;
         }
-        pagingService.setCurrentPage(page);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/products");
-        modelAndView.addObject("maxPages", pagingService.getPageCount());
-        modelAndView.addObject("productList", pagingService.getPageList());
+        modelAndView.addObject("maxPages", productService.getAllProductsPage(page).getTotalPages());
+        modelAndView.addObject("productList", productService.getAllProductsPage(page).getContent());
         modelAndView.addObject("page", page);
         return modelAndView;
     }
@@ -85,5 +83,13 @@ public class ProductController {
         modelAndView.setViewName("/products");
         modelAndView.addObject("productList", productService.getProductsByName(name));
         return modelAndView;
+    }
+
+    @GetMapping("generate-products")
+    private void generateProducts() {
+        Faker faker = new Faker();
+        IntStream.range(0, 30).forEach(i -> productService.createProduct(new Product(i,
+                faker.book().title()  + " - " + faker.book().genre(),
+                faker.book().author())));
     }
 }

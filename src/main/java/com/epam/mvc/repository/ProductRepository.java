@@ -2,9 +2,10 @@ package com.epam.mvc.repository;
 
 import com.epam.mvc.dto.Product;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@Repository
-public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
-    Product findByName(String name);
+@RepositoryRestResource(collectionResourceRel = "resource", path = "resource")
+public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
+    Product findByName(@Param("name") String name);
 }

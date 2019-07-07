@@ -14,6 +14,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,12 +43,14 @@ public class ProductControllerTest {
     @Test
     @WithMockUser
     public void testProductDeletion() throws Exception {
-        int id = 0;
-        assertNotNull(productService.getProduct(id));
-        mockMvc.perform(get("/delete-product/{id}", id))
+        Product product = new Product(0, "test name", "test description");
+        productService.createProduct(product);
+        product = productService.getProductsByName(product.getName()).get(0);
+        assertNotNull(product);
+        mockMvc.perform(get("/delete-product/{id}", product.getId()))
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl("/products"));
-        assertNull(productService.getProduct(id));
+        assertTrue(productService.getProductsByName(product.getName()).size() == 0);
     }
 
     @Test
@@ -61,13 +64,6 @@ public class ProductControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl("/products"));
         assertNotNull(productService.getProductsByName(product.getName()));
-    }
-
-    public static String asJsonString(Product product) {
-        try {
-            return new ObjectMapper().writeValueAsString(product);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        productService.deleteProduct(productService.getProductsByName(product.getName()).get(0).getId());
     }
 }

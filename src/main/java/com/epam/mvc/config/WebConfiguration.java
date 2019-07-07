@@ -2,7 +2,6 @@ package com.epam.mvc.config;
 
 import com.epam.mvc.handler.CustomAuthenticationSuccessHandler;
 import com.epam.mvc.dto.Role;
-import com.epam.mvc.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,18 +10,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Autowired
-    CustomUserDetailsService userDetailsService;
+    private DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("SELECT name, password, true FROM user WHERE name = ?")
+                .authoritiesByUsernameQuery("SELECT name, role FROM user WHERE name = ?")
+                .passwordEncoder(new BCryptPasswordEncoder(10));
     }
 
     @Override
@@ -30,7 +34,6 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/error").permitAll()
-                .antMatchers("/products", "/product/**").hasAuthority(Role.USER.toString())
                 .antMatchers("/users").hasAuthority(Role.ADMIN.toString())
                 .anyRequest().authenticated()
             .and()

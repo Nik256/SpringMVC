@@ -5,6 +5,9 @@ import com.epam.mvc.exception.AchievedMaxNumberOfRequestsException;
 import com.epam.mvc.repository.ProductRepository;
 import com.epam.mvc.session.RequestCounter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,9 @@ public class CustomProductService implements ProductService {
     @Autowired
     private RequestCounter sessionManager;
 
+    @Value("${pageSize}")
+    private int pageSize;
+
     @Override
     public void createProduct(Product product) throws AchievedMaxNumberOfRequestsException {
         if (sessionManager.isRequestAvailable()) {
@@ -30,24 +36,28 @@ public class CustomProductService implements ProductService {
     }
 
     @Override
-    public Product getProduct(int id) {
+    public Product getProduct(long id) {
         return productRepository.findById(id).orElse(null);
     }
 
     @Override
     public void updateProduct(Product product) {
-        product = productRepository.findByName(product.getName());
         productRepository.save(product);
     }
 
     @Override
-    public void deleteProduct(int id) {
-        productRepository.delete(productRepository.findById(id).orElse(null));
+    public void deleteProduct(long id) {
+        productRepository.deleteById(id);
     }
 
     @Override
     public List<Product> getAllProduct() {
         return (List<Product>) productRepository.findAll();
+    }
+
+    @Override
+    public Page<Product> getAllProductsPage(int page) {
+        return productRepository.findAll(PageRequest.of(page, pageSize));
     }
 
     @Override

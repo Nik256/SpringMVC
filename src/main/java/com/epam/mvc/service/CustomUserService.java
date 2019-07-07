@@ -14,36 +14,26 @@ public class CustomUserService implements UserService {
 
     @Override
     public void createUser(User user) {
-        userRepository.create(user);
+        userRepository.save(user);
     }
 
     @Override
-    public User getUser(int id) {
-        return userRepository.read(id);
+    public User getUser(long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public User getUserByName(String name) {
-        return userRepository.getByName(name);
+        return userRepository.findByName(name).get(0);
     }
 
     @Override
-    public void deleteUser(int id) {
-        userRepository.delete(id);
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
     public List<User> getAll() {
-        return userRepository.getAll();
-    }
-
-    @Override
-    public boolean isUserExist(String userName) {
-        for (User user : userRepository.getAll()) {
-            if (user.getName().equals(userName)) {
-                return true;
-            }
-        }
-        return false;
+        return (List<User>) userRepository.findAll();
     }
 }

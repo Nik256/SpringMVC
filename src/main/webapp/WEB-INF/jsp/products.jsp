@@ -38,16 +38,16 @@
     </table>
 
      <c:url value="/products" var="prev">
-        <c:param name="page" value="${page-1}"/>
+        <c:param name="page" value="${page - 1}"/>
      </c:url>
-     <c:if test="${page > 1}">
+     <c:if test="${page > 0}">
             <a href="<c:out value="${prev}" />">Prev</a>
      </c:if>
 
      <c:url value="/products" var="next">
         <c:param name="page" value="${page + 1}"/>
      </c:url>
-     <c:if test="${page + 1 <= maxPages}">
+     <c:if test="${page + 1 < maxPages}">
              <a href='<c:out value="${next}" />'>Next</a>
      </c:if>
     <h3><a href='/product'>Create product</a></h3>

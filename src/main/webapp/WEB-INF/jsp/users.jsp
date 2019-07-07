@@ -34,7 +34,7 @@
                 <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.password}"/></td>
-                <td><c:out value="${user.roles}"/></td>
+                <td><c:out value="${user.role}"/></td>
                 <td style="color:red" id="ajax">Delete</td>
             </tr>
         </c:forEach>

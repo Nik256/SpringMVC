@@ -7,13 +7,11 @@ import java.util.List;
 public interface UserService {
     void createUser(User user);
 
-    User getUser(int id);
+    User getUser(long id);
 
     User getUserByName(String name);
 
-    void deleteUser(int id);
+    void deleteUser(long id);
 
     List<User> getAll();
-
-    boolean isUserExist(String userName);
 }
