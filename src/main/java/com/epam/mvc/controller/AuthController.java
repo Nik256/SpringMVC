@@ -1,8 +1,5 @@
 package com.epam.mvc.controller;
 
-import com.epam.mvc.dto.Role;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,13 +16,8 @@ public class AuthController {
     }
 
     @GetMapping("home")
-    private ModelAndView home(Authentication authentication) {
+    private ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("username", authentication.getName());
-        modelAndView.addObject("authorities", authentication.getAuthorities());
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority(Role.ADMIN.toString()))) {
-            modelAndView.addObject("admin", true);
-        }
         modelAndView.setViewName("/home");
         return modelAndView;
     }

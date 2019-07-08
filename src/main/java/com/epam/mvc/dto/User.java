@@ -2,11 +2,7 @@ package com.epam.mvc.dto;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Set;
+import javax.persistence.*;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -18,5 +14,6 @@ public class User {
     private long id;
     private String name;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

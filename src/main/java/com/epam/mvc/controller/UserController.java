@@ -1,6 +1,6 @@
 package com.epam.mvc.controller;
 
-import com.epam.mvc.dto.Product;
+import com.epam.mvc.dto.Role;
 import com.epam.mvc.dto.User;
 import com.epam.mvc.service.UserService;
 import com.github.javafaker.Faker;
@@ -41,6 +41,6 @@ public class UserController {
         IntStream.range(0, 10).forEach(i -> userService.createUser(new User(i,
                 faker.name().username(),
                 encoder.encode(faker.funnyName().name()),
-                "USER")));
+                Role.USER)));
     }
 }
