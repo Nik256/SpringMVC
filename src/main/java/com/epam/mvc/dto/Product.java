@@ -7,9 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Getter @Setter
+@Data
 @NoArgsConstructor @AllArgsConstructor
-@ToString
 @Entity(name = "product")
 public class Product {
     @Id
