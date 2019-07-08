@@ -20,16 +20,16 @@ public class CustomProductService implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private RequestCounter sessionManager;
+    private RequestCounter requestCounter;
 
     @Value("${pageSize}")
     private int pageSize;
 
     @Override
     public void createProduct(Product product) throws AchievedMaxNumberOfRequestsException {
-        if (sessionManager.isRequestAvailable()) {
+        if (requestCounter.isRequestAvailable()) {
             productRepository.save(product);
-            sessionManager.reduceRequestNumber();
+            requestCounter.reduceRequestNumber();
         } else {
             throw new AchievedMaxNumberOfRequestsException("Max number of requests achieved");
         }
